@@ -1,0 +1,77 @@
+{% extends "dreamrise/base.html" %}
+
+{% block main %}
+{#{% if login.user == request.user %}#}
+<div class="login-card">
+    {% if form.errors %}
+    <div class="container">
+        <p class="err-msg">
+            Incorrect user name and password, or your account has not been validated.
+        </p>
+    </div>
+    {% endif %}
+
+{#    <br/>#}
+    <div class="container">
+        <form class="form-signin" method="post" action="{% url 'login' %}">
+
+            <h1 id="Signin">Sign In</h1>
+            <br>
+            <div>
+                <p>{{ form.username.label_tag }}</p>
+                <p>{{ form.username }}</p>
+            </div>
+{#            <div>#}
+{#                        <input type="text" class="form-control" id="{{ form.username.id_for_label }}" name="{{ form.username.html_name }}" value="{{ form.username.value }}">#}
+{#                        <!-- Display errors of age field -->#}
+{#                        {{ form.username.errors }}#}
+{#            </div><!-- col-sm-3 control-label -->#}
+
+            <div>
+                <p>{{ form.password.label_tag }}</p>
+                <p>{{ form.password }}</p>
+            </div>
+
+{#            <p class="remember_me">#}
+{#            <label>#}
+{#            <input type="checkbox" name="remember_me" id="remember_me">#}
+{#            Remember me on this computer#}
+{#            </label>#}
+{#            </p>#}
+            <span class="row">
+            <button class="btn btn-primary " type="submit" value="Login"/> Sign in </button>
+{#            <a class="btn" href="{% url 'register' %}">Sign up</a>#}
+                </span>
+            <input type="hidden" name="next" value="{{ next }}" />
+            {% csrf_token %}
+        </form>
+        </div>
+    <div class="container">
+        <span>
+            <a href="{% url 'register' %}"><button class="btn btn-default dropdown-toggle" type="submit">Sign up</button></a>
+        </span>
+        <div class="row">
+{#            <ul class="social-allauth">#}
+{#                <li>#}
+        <br>
+                <a target="_self" href="/accounts/facebook/login/?next=/dreamrise/social-redirect/" class="btn btn-primary btn-lg facebook-login"><i class="fa fa-facebook"></i> <span class="pn-semi ng-scope">Sign in with Facebook</span></a>
+                    </a>
+{#                </li>#}
+        <br>
+        <br>
+
+{#                <li>#}
+{#                <a target="_self" href="/accounts/google/login/?next=http://localhost:8000" class="btn btn-danger btn-lg google-login"><i class="fa fa-google-plus"></i> <span class="pn-semi ng-scope">Sign in with Google+</span></a>#}
+{#                </a>#}
+{#                </li>#}
+{#            </ul>#}
+    </div>
+    </div>
+
+
+</div>
+{#{% endif %}#}
+{#{% if login.user == request.user %}#}
+{##}
+{#{% endif %}#}
+{% endblock %}

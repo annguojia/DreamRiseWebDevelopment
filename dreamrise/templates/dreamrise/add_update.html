@@ -1,0 +1,33 @@
+{% extends "dreamrise/base.html" %}
+
+{% block main %}
+    <h3 class="text-center">Give us some updates!</h3>
+    <form class="form-horizontal" action="{% url 'add_update' activity.id  %}" method="POST">
+        <div class="form-group">
+{#                <label for="{{ form.title.id_for_label }}" class="col-sm-4 control-label">{{ form.title.label }}</label>#}
+                <div class="col-sm-4 col-sm-offset-4">
+                    <input type="text" class="form-control" id="{{ form.title.id_for_label }}" name="{{ form.title.html_name }}" value="{{ form.title.value }}" onfocus="if (value =='Title'){value =''}" onblur="if (value ==''){value='Title'}">
+                    <!-- Display errors of age field -->
+                    {{ form.title.errors }}
+                </div><!-- col-sm-3 control-label -->
+            </div><!-- form-group -->
+        <div class="form-group">
+{#                <label for="{{ form.content.id_for_label }}" class="col-sm-4 control-label">{{ form.content.label }}</label>#}
+                <div class="col-sm-4 col-sm-offset-4">
+                    <textarea class="form-control" id="{{ form.content.id_for_label }}" rows="7" name="{{ form.content.html_name }}" onfocus="if (value =='Content'){value =''}" onblur="if (value ==''){value='Content'}">{% if form.content.value %}{{ form.content.value }}{% endif %}</textarea>
+                    {{ form.content.errors }}
+                </div><!-- col-sm-3 control-label -->
+            </div><!-- form-group -->
+{#        {{ form.as_p }}#}
+        <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-5">
+                    <input type="submit" class="btn btn-primary" value="Add Update">
+                </div>
+            </div>
+{#        <input type="submit"/>#}
+        {% csrf_token %}
+    </form>
+
+{% endblock %}
+
+

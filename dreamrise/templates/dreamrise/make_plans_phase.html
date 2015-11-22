@@ -1,0 +1,56 @@
+{% extends "dreamrise/base.html" %}
+
+{% load staticfiles %}
+
+{% block style %}
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+{% endblock %}
+
+{% block main %}
+
+    <div class="container">
+        <form class="form-horizontal" action="{% url 'add_phase' activity.id  %}" method="POST">
+{#            {{ form }}#}
+            <div class="form-group">
+                <label for="{{ form.title.id_for_label }}" class="col-sm-3 control-label">{{ form.title.label }}</label>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control" id="{{ form.title.id_for_label }}" name="{{ form.title.html_name }}">
+                    <!-- Display errors of age field -->
+                    {{ form.title.errors }}
+                </div><!-- col-sm-3 control-label -->
+            </div><!-- form-group -->
+            <div class="form-group">
+                <label for="{{ form.description.id_for_label }}" class="col-sm-3 control-label">{{ form.description.label }}</label>
+                <div class="col-sm-7">
+                    <textarea class="form-control" id="{{ form.description.id_for_label }}" rows="3" name="{{ form.description.html_name }}"></textarea>
+                    <!-- Display errors of age field -->
+                    {{ form.description.errors }}
+                </div><!-- col-sm-3 control-label -->
+            </div><!-- form-group -->
+            <div class="form-group">
+                <label for="{{ form.due_date.id_for_label }}" class="col-sm-3 control-label">{{ form.due_date.label }}</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control datepicker" id="{{ form.due_date.id_for_label }}" name="{{ form.due_date.html_name }}" value="{{ form.due_date.value|date:"Y-m-d" }}">
+                    <!-- Display errors of age field -->
+{#                    {{ form.due_date }}#}
+                    {{ form.due_date.errors }}
+                </div><!-- col-sm-3 control-label -->
+            </div><!-- form-group -->
+            <div class="col-sm-2 col-sm-offset-3">
+            <input type="submit" class="btn btn-primary" value="Add Phase"/>
+                </div>
+            {% csrf_token %}
+        </form>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script>
+        // datepicker tool from jQuery UI
+        $(function() {
+            $( ".datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
+        });
+     </script>
+{% endblock %}

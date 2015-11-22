@@ -1,0 +1,35 @@
+{% extends "dreamrise/base_payment.html" %}
+
+{% block content %}
+    <div class="row">
+    <div class="row  col-sm-offset-3 col-sm-6">
+     <table class="table table-bordered">
+            <tr>
+                <div class="row" >
+
+                <td class=" col-sm-1 text-center"><h4>1.&nbsp;Make Contribution</h4></td>
+                <td  class=" col-sm-1 text-center"><h4>2.&nbsp;Pay</h4></td>
+                <td style="color: deeppink;" class="bg-warning col-sm-1 text-center"><h4>3.&nbsp;Complete</h4></td>
+
+                </div>
+            </tr>
+        </table>
+    </div>
+    <br>
+    <br>
+    </div>
+    <div class="row ">
+        <h3 class="text-center">Dear&nbsp;{{ first_name }}&nbsp;{{ last_name }},&nbsp;thanks for your payment!</h3>
+        <br>
+        <br>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script>
+        setTimeout(function() {
+            window.location.replace("{% url 'show_activity' activity.id %}");
+        }, 2000);
+    </script>
+{% endblock %}
+

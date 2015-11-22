@@ -1,0 +1,11 @@
+{% extends "dreamrise/base.html" %}
+
+{% block main %}
+<h1 class="text-center">Email Notification</h1>
+    <div class="row">
+<div class="col-sm-offset-3 col-sm-6 align-left">
+<h4>Hi &nbsp;{{first_name}}&nbsp;{{ last_name }},<br><br>A confirmation email has been sent to <a style="color: grey">{{email}}.</a> <br><br>Please click the link in that email to confirm your email address and complete your registration for
+your dreamrise account.<br><br><br><br>Best,<br>Dreamrise team</h4>
+</div>
+    </div>
+{% endblock %}

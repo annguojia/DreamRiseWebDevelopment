@@ -1,0 +1,4 @@
+<h2>{{ object.title }}</h2>
+<p>{{ object.description }}</p>
+<p>{{ object.id }}</p>
+<p>{{ object.starter }}</p>

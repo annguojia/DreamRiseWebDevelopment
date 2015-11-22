@@ -1,0 +1,29 @@
+{% extends "dreamrise/base.html" %}
+
+{% block main %}
+{#    <h4>{{ update.title }}</h4>#}
+    <br>
+    <h1 class="text-center">{{ update.title }}</h1>
+    <h5 class="text-center" style="color: darkgrey">{{ update.date }}</h5>
+    <br>
+    {% if original_update_user == request_user %}
+    <form class="form-horizontal" action="{% url 'show_update' activity.id update.id %}" method="GET">
+        <div class="row">
+            <div class="text-center">
+                <input class="btn btn-primary " type="submit" value="Edit Update"/>
+            </div>
+         </div>
+        {% csrf_token %}
+    </form>
+        <br>
+        <br>
+        <br>
+    {% endif %}
+    <div class="row">
+        <div class="col-sm-offset-3 col-sm-6 align-left">
+            <p>{{ update.content }}</p>
+        </div>
+    </div>
+    <br>
+
+{% endblock %}

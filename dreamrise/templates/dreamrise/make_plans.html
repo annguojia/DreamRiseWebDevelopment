@@ -1,0 +1,93 @@
+{% extends "dreamrise/base.html" %}
+
+{% block main %}
+    <div class="container">
+        <h1 class="text-info text-capitalize text-center"><a href="{% url 'show_activity' activity.id %}" style="text-decoration: none; color: #000000;">{{ activity.title }}'s planning</a></h1>
+{#        <h3 class="text-center">Planning</h3><br/>#}
+    <br>
+        {% if phases %}
+            {% for phase in phases %}
+                <div class="row">
+                <div class="panel panel-info col-sm-6 col-sm-offset-3" >
+                    <div class="panel-heading row">
+                        <form class="phase-delete-form" action="{% url 'deletephase' activity.id phase.id%}" method="POST">
+                                                {% csrf_token %}
+                            <button type="submit" class="btn btn-danger btn-delete">
+                                <i class="fa fa-trash-o fa-lg"></i>
+                            </button>
+                         </form>
+{#                        <a class="btn btn-danger btn-delete" href="{% url 'deletephase' activity.id phase.id%}">#}
+{#                            <i class="fa fa-trash-o fa-lg"></i>#}
+{#                        </a>#}
+                        <a class="btn btn-primary btn-edit" href="{% url 'editphase' activity.id phase.id %}">
+                            <i class="fa fa-pencil-square"></i>
+                        </a>
+                        <div class="panel-heading-content">
+
+                            <span style="display: inline; font-size: 20px; font-weight: bold;">{{ phase.title }}</span>
+
+                            <p>{% if phase.due_date %}{{ phase.due_date }}{% endif %}</p>
+                        </div>
+                        <span style="display: block;" class="word-wrapper">
+                            {{ phase.description }}
+                        </span>
+                    </div>
+                    <ul class="list-group">
+                        {% for todo in phase.todo_set.all reversed %}
+                            <li class="list-group-item">
+                                <form class="phase-delete-form" action="{% url 'deletetodo' activity.id phase.id todo.id %}" method="POST">
+                                                {% csrf_token %}
+                                        <button type="submit" class="btn btn-danger btn-todo-delete">
+                                            <i class="fa fa-trash-o fa-lg"></i>
+                                        </button>
+                                </form>
+
+                                <a class="btn btn-primary btn-todo-edit" href="{% url 'edittodo' activity.id phase.id todo.id%}">
+                                    <i class="fa fa-pencil-square"></i>
+                                </a>
+
+                                <div class="panel-todo-checkbox">
+                                </div>
+                                <div class="panel-todo-content word-wrapper">
+                                    <input type="checkbox" class="checkbox todo-checkbox" style="display: inline;"/>
+                                    <span class="todo-span">{{ todo.content }}</span>
+                                </div>
+                            </li>
+                        {% endfor %}
+                        <li class="list-group-item">
+                            <form action="{% url 'add_todo' activity.id phase.id %}" method="POST">
+                                <div class="form-group">
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="{{ form.content.id_for_label }}" name="{{ form.content.html_name }}" >
+
+                                        {% if phase.id == todo_phase_id %}
+
+                                            {{ form.content.errors }}
+                                        {% endif %}
+                                    </div>
+{#                                {{ phase.id }}#}
+{#                                {{ todo_phase_id }}#}
+
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" class="btn btn-primary" value="Add">
+                                </div>
+
+{#                                    <input type="submit" value="Add" class="btn btn-default"/>#}
+                                {% csrf_token %}
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+                </div>
+                <div class="col-sm-3"></div>
+            {% endfor %}
+        {% endif %}
+        <br/>
+        <a href="{% url 'phase' activity.id %}">
+            <div class="text-center">
+            <button class="btn btn-primary"><i class="fa fa-plus"></i> Add New Phase</button>
+            </div>
+        </a>
+    </div>
+{% endblock %}

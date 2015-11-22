@@ -1,0 +1,75 @@
+{% extends "dreamrise/base.html" %}
+{% block main %}
+
+    <h1 class="text-center">Modify your profile here!</h1>
+    <img src="{{ user_profile.avatar_url }}" width="180px" height="170px" style="position: relative; top: 150px; left: 950px" />
+    <div class="container">
+
+        <form enctype="multipart/form-data" method="post" action="{% url 'edit' %}">
+            <div class="form-group">
+                <label for="{{ user_form.first_name.id_for_label }}" class="col-sm-2 col-sm-offset-2 control-label">{{ user_form.first_name.label }}</label>
+                <div class="col-sm-4 ">
+                    <input type="text" class="form-control" id="{{ user_form.first_name.id_for_label }}"  name="{{ user_form.first_name.html_name }}"  value="{{ user_form.first_name.value }}">
+                    {{ user_form.first_name.errors }}
+                </div>
+                <br/>
+            </div>
+            <br/>
+            <div class="form-group">
+                <br/>
+                <label for="{{ user_form.last_name.id_for_label }}" class="col-sm-2 col-sm-offset-2 control-label">{{ user_form.last_name.label }}</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="{{ user_form.last_name.id_for_label }}"  name="{{ user_form.last_name.html_name }}"  value="{{ user_form.last_name.value }}">
+                    {{ user_form.last_name.errors }}
+
+                </div>
+                 <br>
+            </div>
+            <br>
+            <div class="form-group">
+                <br>
+                <label for="{{ user_form.email.id_for_label }}" class="col-sm-2 col-sm-offset-2 control-label">{{ user_form.email.label }}</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="{{ user_form.email.id_for_label }}"  name="{{ user_form.email.html_name }}"  value="{{ user_form.email.value }}">
+                     {{ user_form.email.errors }}
+                </div>
+                <br/>
+            </div>
+            <br>
+            <div class="form-group">
+                <br>
+                <label for="{{ form.bio.id_for_label }}" class="col-sm-2 col-lg-offset-2 control-label">{{ form.bio.label }}</label>
+                <div class="col-sm-7">
+                    <textarea class="form-control" id="{{ form.bio.id_for_label }}" rows="3" name="{{ form.bio.html_name }}">{% if form.bio.value %}{{ form.bio.value }}{% endif %}</textarea>
+                    {{ form.bio.errors }}
+                    <br>
+                </div><!-- col-sm-3 control-label -->
+            </div>
+            <div class="form-group">
+                <label for="{{ form.avatar.id_for_label }}" class="col-sm-2 col-lg-offset-2 control-label">{{ form.avatar.label }}</label>
+                <div class="col-sm-7">
+                    <input type="file" class="form-control" id="{{ form.avatar.id_for_label }}" name="{{ form.avatar.html_name }}">
+                    {{ form.avatar.errors }}
+                    <br>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="{{ form.phone_number.id_for_label }}" class="col-sm-2 col-lg-offset-2 control-label">{{ form.phone_number.label }}</label>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control" id="{{ form.phone_number.id_for_label }}" name="{{ form.phone_number.html_name }}" value="{{ form.phone_number.value }}">
+                    {{ form.phone_number.errors }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="{{ form.phone_number.id_for_label }}" class="col-sm-2 col-lg-offset-2 control-label"></label>
+                <div class="col-sm-7">
+                    <br/>
+                    <input type="submit" value="Update" class="btn btn-primary">
+                </div>
+            </div>
+            {% csrf_token %}
+        </form>
+    </div>
+  
+
+{% endblock %}

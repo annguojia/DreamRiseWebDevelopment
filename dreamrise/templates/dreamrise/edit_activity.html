@@ -1,0 +1,130 @@
+{% extends "dreamrise/base_activity.html" %}
+
+{% load staticfiles %}
+
+{% block style %}
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+{% endblock %}
+
+{% block content %}
+    <form class="form-horizontal" enctype="multipart/form-data" method="post" action="{% url 'edit_activity' activity %}">
+        {{ form.media }}
+
+        <br/>
+        <div class="form-group">
+            <label for="{{ form.title.id_for_label }}" style="text-align:left" class="col-sm-1 col-sm-offset-2 control-label">{{ form.title.label }}</label>
+            <div class="col-sm-7">
+                <input type="text"  class="form-control" id="{{ form.title.id_for_label }}" name="{{ form.title.html_name }}" value="{{ form.title.value }}">
+                <!-- Display errors of age field -->
+                {{ form.title.errors }}
+            </div><!-- col-sm-3 control-label -->
+        </div><!-- form-group -->
+        <div class="form-group">
+            <label for="{{ form.image.id_for_label }}" style="text-align:left" class="col-sm-1 col-sm-offset-2 control-label">{{ form.image.label }}</label>
+            <div class="col-sm-7">
+                <input type="file" class="form-control" id="{{ form.image.id_for_label }}" name="{{ form.image.html_name }}">
+                <!-- Display errors of age field -->
+                {{ form.image.errors }}
+                <br/>
+                <div class="row">
+                   <img src="{{ activity.image_url }}" class="" style="padding-left: 16px" alt="Generic placeholder image" width="630" height="440">
+                </div>
+            </div><!-- col-sm-3 control-label -->
+            
+        </div><!-- form-group -->
+        <div class="form-group">
+            <label for="{{ form.description.id_for_label }}" style="text-align:left" class="col-sm-1 col-sm-offset-2 control-label">{{ form.description.label }}</label>
+            <div class="col-sm-7">
+                <textarea class="form-control" id="{{ form.description.id_for_label }}" rows="5" name="{{ form.description.html_name }}">{% if form.description.value %}{{ form.description.value }}{% endif %}</textarea>
+                {{ form.description.errors }}
+            </div><!-- col-sm-3 control-label -->
+        </div><!-- form-group -->
+        <div class="form-group">
+            <label class="col-sm-1 col-sm-offset-2 control-label">Location</label>
+            <div class="col-sm-7">
+{#                    <input type="text" class="form-control" id="{{ form.country.id_for_label }}" name="{{ form.country.html_name }}">#}
+                <!-- Display errors of age field -->
+                <div class="row">
+                    <div class="col-sm-7">
+                        <select class="form-control col-sm-1" id="{{ form.country.id_for_label }}" name ="{{ form.country.html_name }}" ></select>
+                    </div>
+                    {{ form.country.errors }}
+                    <div class="col-sm-5">
+                        <select class="form-control" id="{{ form.city.id_for_label }}" name ="{{ form.city.html_name }}"></select>
+                    </div>
+                    {{ form.city.errors }}
+                </div>
+            </div><!-- col-sm-3 control-label -->
+        </div><!-- form-group -->
+        <div class="form-group">
+            <label for="{{ form.fund_end.id_for_label }}" style="text-align:left" class="col-sm-1 col-sm-offset-2 control-label">Start date</label>
+            <div class="col-sm-3">
+                <div class="activity-edit-start">{{ activity.fund_start|date:"Y-m-d" }}</div>
+            </div><!-- col-sm-3 control-label -->
+            
+        </div><!-- form-group -->
+        <div class="form-group">
+            <label for="{{ form.fund_end.id_for_label }}" style="text-align:left" class="col-sm-1 col-sm-offset-2 control-label">End date</label>
+            <div class="col-sm-3">
+{#                    <input type="date" class="form-control datepicker" id="{{ form.fund_end.id_for_label }}" name="{{ form.fund_end.html_name }}" value="{{ form.fund_end.value }}">#}
+                {{ form.fund_end }}
+                <!-- Display errors of age field -->
+                {{ form.fund_end.errors }}
+            </div><!-- col-sm-3 control-label -->
+            
+        </div><!-- form-group -->
+        <div class="form-group">
+            <label for="{{ form.fund_goal.id_for_label }}" style="text-align:left" class="col-sm-1 col-sm-offset-2 control-label">Goal</label>
+            <div class="col-sm-3">
+                {% load humanize %}
+                <input type="number" class="form-control" id="{{ form.fund_goal.id_for_label }}" name="{{ form.fund_goal.html_name }}" value="{{ form.fund_goal.value|floatformat }}">
+                <!-- Display errors of age field -->
+                {{ form.fund_goal.errors }}
+            </div><!-- col-sm-3 control-label -->
+        </div><!-- form-group -->
+        <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-5">
+                <input type="submit" class="btn btn-primary" value="Save">
+            </div>
+        </div>
+        {% csrf_token %}
+    </form>
+{% endblock %}
+
+{% block script %}
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="{% static 'dreamrise/js/countries.js' %}"></script>
+    <script>
+        // populate country and city information
+        $countryValue = "{{ form.country.value }}";
+        $cityValue = "{{ form.city.value }}";
+
+        populateCountries("{{ form.country.id_for_label }}", "{{ form.city.id_for_label }}");
+
+        var selection = document.getElementById('{{ form.country.id_for_label }}');
+        var opts = selection.options;
+        for (var opt, j = 0; opt = opts[j]; j++) {
+            if(opt.value == $countryValue) {
+                selection.selectedIndex = j;
+                break;
+            }
+        }
+
+        populateStates("{{ form.country.id_for_label }}", "{{ form.city.id_for_label }}");
+
+        selection = document.getElementById('{{ form.city.id_for_label }}');
+        opts = selection.options;
+        for (opt, j = 0; opt = opts[j]; j++) {
+            if(opt.value == $cityValue) {
+                selection.selectedIndex = j;
+                break;
+            }
+        }
+
+
+        // datepicker tool from jQuery UI
+        $(function() {
+            $( ".datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
+        });
+     </script>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "dreamrise/base.html" %}
+
+{% block main %}
+    <div class="container">
+        <h1 class="text-center activity-title" data-activity-id="{{ activity.id }}"><a href="{% url 'show_activity' activity.id %}" style="text-decoration: none; color: #000000;">{{ activity.title }}</a></h1>
+        <p class="text-center">By Starter: <a href="{% url 'profile' activity.starter.id %}" style="color: #000000; text-decoration: none;">{{ activity.starter.first_name }}&nbsp;{{ activity.starter.last_name }}</a></p>
+        {% block content %}
+        {% endblock %}
+    </div>
+{% endblock %}

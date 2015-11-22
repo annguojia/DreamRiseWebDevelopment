@@ -1,0 +1,50 @@
+from django.conf.urls import patterns, include, url
+from django.views.generic import RedirectView
+import dreamrise.views
+# import haystack
+# haystack.autodiscover()
+
+urlpatterns = patterns('',
+    url(r'^$', 'dreamrise.views.home', name='home'),
+    url(r'^register$', 'dreamrise.views.register', name='register'),
+    # url(r'^login$', 'django.contrib.auth.views.login', {'template_name':'dreamrise/login.html'}, name='login'),
+    url(r'^logout$', 'django.contrib.auth.views.logout_then_login', name='logout'),
+    url(r'^create$', 'dreamrise.views.create_activity', name='create_activity'),
+    url(r'^activity/(?P<id>\d+)$', 'dreamrise.views.show_activity', name='show_activity'),
+    url(r'^activity/(?P<id>\d+)/add-comment$', 'dreamrise.views.add_comment', name='add_comment'),
+    url(r'^activity/(?P<id>\d+)/like$', 'dreamrise.views.like_activity', name='like_activity'),
+    url(r'^activity/(?P<id>\d+)/like-json$', 'dreamrise.views.like_activity_json', name='like_activity_json'),
+    url(r'^activity/(?P<id>\d+)/fund/$', 'dreamrise.views.fund_activity', name='fund_activity'),
+    url(r'^activity/(?P<id>\d+)/fund/payment/$', 'dreamrise.views.fund_activity_payment', name='fund_activity_payment'),
+    url(r'^activity/(?P<id>\d+)/fund/checkout/$', 'dreamrise.views.fund_activity_checkout', name='fund_activity_checkout'),
+    url(r'^activity/(?P<id>\d+)/edit', 'dreamrise.views.edit_activity', name='edit_activity'),
+    url(r'^activity/(?P<id>\d+)/update$', 'dreamrise.views.update', name='update'),
+    # url(r'^activity/(?P<id>\d+)/plans$', 'dreamrise.views.plans', name='plans'),
+    url(r'^activity/(?P<id>\d+)/add-update$', 'dreamrise.views.add_update', name='add_update'),
+    url(r'^activity/(?P<id1>\d+)/updates/(?P<id2>\d+)$', 'dreamrise.views.show_update', name='show_update'),
+    url(r'^activity/(?P<id1>\d+)/original-updates/(?P<id2>\d+)$', 'dreamrise.views.show_original_update', name='show_original_update'),
+    url(r'^activity/(?P<id>\d+)/make-plans$', 'dreamrise.views.make_plans', name='make_plans'),
+    url(r'^activity/(?P<id>\d+)/make-plans/phase$', 'dreamrise.views.phase', name='phase'),
+    url(r'^activity/(?P<id1>\d+)/make-plans/phase/(?P<id2>\d+)/add-todo$', 'dreamrise.views.add_todo', name='add_todo'),
+    url(r'^activity/(?P<id>\d+)/make-plans/add-phase$', 'dreamrise.views.add_phase', name='add_phase'),
+    url(r'^payments/', include('payments.urls')),
+    # url(r'^image/(?P<id>\d+)$', 'dreamrise.views.get_image', name='image'),
+    # url(r'^avatar/(?P<id>\d+)$', 'dreamrise.views.get_avatar', name='avatar'),
+    url(r'^edit$', 'dreamrise.views.edit_user_profile', name='edit'),
+    url(r'^change-password', 'dreamrise.views.change_password', name='change_password'),
+    url(r'^profile/(?P<id>\d+)$', 'dreamrise.views.profile', name='profile'),
+    # url(r'^search/$', include('haystack.urls')),
+    url(r'^explore', 'dreamrise.views.explore', name='explore'),
+    url(r'^search', 'dreamrise.views.search', name='search'),
+    # url(r'^showplans/$', 'dreamrise.views.display_plans', name='display_plans'),
+    url(r'^confirmation/(?P<username>[a-zA-Z0-9_@\+\-]+)/(?P<token>[a-z0-9\-]+)$', 'dreamrise.views.confirmation', name='confirm'),
+    # url(r'^deletetodo/(?P<id>\d+)$', 'dreamrise.views.delete_todo', name='deletetodo'),
+    url(r'^activity/(?P<id1>\d+)/make-plans/phase/(?P<id2>\d+)/delete-todo/(?P<id3>\d+)$', 'dreamrise.views.delete_todo', name='deletetodo'),
+    url(r'^activity/(?P<id1>\d+)/make-plans/phase/deletephase/(?P<id2>\d+)$', 'dreamrise.views.delete_phase', name='deletephase'),
+    url(r'^activity/(?P<id1>\d+)/make-plans/phase/(?P<id2>\d+)/edit-todo/(?P<id3>\d+)$', 'dreamrise.views.edit_todo', name='edittodo'),
+    url(r'^activity/(?P<id1>\d+)/make-plans/phase/editphase/(?P<id2>\d+)$', 'dreamrise.views.edit_phase', name='editphase'),
+    url(r'^social-redirect/$','dreamrise.views.social_redirect',name='social-redirect'),
+
+    # Route for customized built-in authentication with our own custom login page
+    url(r'^login$', dreamrise.views.custom_login, {'template_name':'dreamrise/login.html'}, name='login'),
+)

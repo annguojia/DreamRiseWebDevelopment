@@ -1,0 +1,23 @@
+.DS_Store
+*.log
+*.pot
+*.pyc
+local_settings.py
+config.ini
+venv
+
+venv  
+staticfiles
+
+# Editor backup files
+*~
+*#
+
+#database file
+db.sqlite3
+dreamrise/migrations
+
+.idea
+.idea/
+headphotos/
+picture/

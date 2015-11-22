@@ -1,0 +1,18 @@
+{% extends "dreamrise/base.html" %}
+{% block main %}
+    <h3 class="text-center">Edit your todo</h3>
+    <form action="{% url 'edittodo' activity.id phase.id todo.id %}" method="POST">
+
+        <div class="form-group">
+            <label for="{{ form.content.id_for_label }}" style="text-align:left" class="col-sm-1 col-sm-offset-2 control-label">{{ form.title.label }}</label>
+            <div class="col-sm-5">
+                <input type="text"  class="form-control" id="{{ form.content.id_for_label }}" name="{{ form.content.html_name }}" value="{{ form.content.value }}">
+                <!-- Display errors of age field -->
+
+            </div><!-- col-sm-3 control-label -->
+        </div>
+{#        {{ form }}#}
+        <input type="submit" class="btn btn-primary" value="Edit"/>
+        {% csrf_token %}
+    </form>
+{% endblock %}
