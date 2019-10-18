@@ -82,7 +82,7 @@ stripe==1.22.1
 tox==1.9.2
 Twisted==12.2.0
 Unidecode==0.4.17
-urllib3==1.10.2
+urllib3==1.24.2
 virtualenv==12.0.7
 xattr==0.6.4
 zope.interface==3.8.0
