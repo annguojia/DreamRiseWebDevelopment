@@ -29,7 +29,7 @@ numpy==1.6.2
 oauthlib==0.7.2
 Pillow==2.7.0
 psycopg2==2.5.3
-py==1.4.26
+py==1.10.0
 py2app==0.7.1
 pyasn1==0.1.7
 pyobjc-core==2.3.2a0
