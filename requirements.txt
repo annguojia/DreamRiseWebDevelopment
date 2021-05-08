@@ -17,7 +17,7 @@ django-haystack==2.3.1
 django-jsonfield==0.9.13
 django-stripe-payments==2.0.0
 django-toolbelt==0.0.1
-eventlet==0.17.3
+eventlet==0.31.0
 greenlet==0.4.5
 gunicorn==19.0.0
 haystack==0.15
